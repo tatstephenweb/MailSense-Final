@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MailSense</title>
+
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Satoshi', 'ui-sans-serif', 'system-ui', 'sans-serif']
+        },
+        colors: {
+          canvas: '#FFFFFF',
+          panel: '#29700A',
+          darker: '#00451B',
+          border: 'rgba(255,255,255,0.06)',
+          ink: '#222222',
+          muted: '#FFFDF1',
+          faint: '#41AB5D',
+          accent: '#38c6b4',
+          high: '#ef4444',
+          medium: '#eab308',
+          low: '#22c55e',
+          firstgreen: '#F7FCF5',
+          secondgreen: '#E4F5DF',
+          thirdgreen: '#C5E8BE',
+          sixthgreen: '#41AB5D',
+        }
+      }
+    }
+  }
+</script>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-canvas text-ink font-sans antialiased h-screen overflow-hidden">
+
+<div class="flex h-full">
+
+  <!-- Sidebar backdrop, mobile only -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-black/70 z-30 hidden md:hidden"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar"
+    class="fixed md:static z-40 inset-y-0 left-0 w-52 -translate-x-full md:translate-x-0
+           transition-transform duration-200 ease-out
+           bg-darker border-r border-border flex flex-col h-full">
+
+    <!-- Brand -->
+    <div class="flex items-center gap-2.5 px-5 pt-6 pb-5 shrink-0 border-b border-border/10">
+      <img class="w-8" src="{{ url_for('static', filename='Frame.png') }}" alt="Logo">
+      <span class="text--17px text-white font-bold tracking-tight">MailSense</span>
+      <button id="close-sidebar" class="ml-auto md:hidden text-faint hover:text-ink p-1" aria-label="Close menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Scrollable nav -->
+    <nav id="side-nav" style="border-top-right-radius: 10px;" class="flex-1 overflow-y-auto custom-scroll px-3 pt-3 pb-4 space-y-7">
+
+      <div>
+        <button data-nav="all" class="nav-item nav-item--active w-full flex items-center gap-2.5 rounded-lg px-3 py-1.5 text-[15px] font-medium">
+          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 12h4l2 3h4l2-3h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 12V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          All Inboxes
+        </button>
+      </div>
+
+      <div>
+        <p class="px-3 mb-2 text-[11px] font-bold text-faint tracking-wide">SORT PRIORITY</p>
+        <div class="space-y-1">
+          <button data-priority="high" class="priority-item w-full flex items-center gap-2.5 rounded-lg px-3 py-1.5 text-[15px] font-medium">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3v12" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+              <path d="M6 9l6-6 6 6" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="19" r="1.5" fill="#ef4444"/>
+            </svg>
+            High
+          </button>
+          <button data-priority="medium" class="priority-item w-full flex items-center gap-2.5 rounded-lg px-3 py-1.5 text-[15px] font-medium">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="11" width="18" height="2.5" rx="1.25" fill="#f59e0b"/>
+    <circle cx="12" cy="19" r="1.5" fill="#f59e0b"/>
+  </svg>
+            Medium
+          </button>
+          <button data-priority="low" class="priority-item w-full flex items-center gap-2.5 rounded-lg px-3 py-1.5 text-[15px] font-medium">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21V9" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6 15l6 6 6-6" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="5" r="1.5" fill="#22c55e"/>
+          </svg>
+            Low
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <p class="px-3 mb-2 text-[11px] font-semibold text-faint tracking-wide">ORGANIZE</p>
+        <div class="space-y-1">
+          <button class="nav-item text-forthgreen gap-2.5 w-full flex items-center rounded-lg px-3 py-1.5 text-[15px] font-medium text-muted cursor-not-allowed">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 16v-5a6 6 0 1 0-12 0v5l-1.5 2.5h15L18 16Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 21a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="text-thirdgreen">Notification</span>
+          </button>
+          <button class="nav-item text-forthgreen gap-2.5 w-full flex items-center  rounded-lg px-3 py-1.5 text-[15px] font-medium text-muted cursor-not-allowed">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9.6a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="text-thirdgreen">Settings</span>
+          </button>
+        </div>
+      </div>
+
+    </nav>
+
+    <!-- Reserved slot for an upcoming game -->
+    <div class="px-3 pb-3 pt-3 shrink-0 border-t border-border/10">
+      <div id="sidebar-game-slot" class="h-24 rounded-xl bg-sixthgreen"></div>
+    </div>
+
+    <!-- Profile -->
+    <div class="flex items-center gap-2 px-4 py-4 border-t border-border shrink-0">
+      <div class="h-8 w-8 rounded-full bg-faint flex items-center justify-center text-[15px] font-bold shrink-0">T</div>
+      <span class="text-10 text-white">Tat Stephen</span>
+    </div>
+
+  </aside>
+
+  <!-- Main -->
+  <div class="flex-1 flex flex-col min-w-0 h-full">
+
+    <!-- Mobile top bar -->
+    <div class="md:hidden flex items-center gap-3 px-4 py-3.5 border-b border-border shrink-0 bg-darker justify-between">
+      <span class="text-[16px] font-bold tracking-tight text-white">MailSense</span>
+      <button id="open-sidebar" class="text-ink p-1 bg-faint rounded-xl" aria-label="Open menu">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+
+    <!-- List view -->
+    <section id="list-view" class="flex-1 flex flex-col min-h-0">
+      <div class="px-5 md:px-5 pt-5 pb-5 shrink-0 border-b border-ink/10 bg-firstgreen">
+        <h1 id="list-title" class="text-[20px] font-bold tracking-tight">All Inboxes</h1>
+      </div>
+      <div id="mail-list" class="flex-1 overflow-y-auto custom-scroll px-2 md:px-2 pb-8"></div>
+    </section>
+
+    <!-- Detail view -->
+    <section id="detail-view" class="hidden flex-1 flex-col min-h-0">
+      <div class="px-4 md:px-10 pt-6 pb-2 shrink-0">
+        <button id="back-to-list" class="inline-flex items-center gap-2 text-[14px] font-medium text-muted hover:text-ink rounded-lg px-2 py-1.5 -ml-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <br>
+      </div>
+      <div id="mail-detail" class="flex-1 overflow-y-auto custom-scroll px-6 md:px-10 pb-10"></div>
+    </section>
+
+  </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/data.js') }}?v=2"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}?v=2"></script>
+</body>
+</html>

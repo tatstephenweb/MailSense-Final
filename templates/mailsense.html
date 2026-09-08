@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MailSense — Inbox clarity, sorted for you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,400..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
+</style>
+
+<style>
+  :root{
+    --ink:#12241b;
+    --forest:#123b27;
+    --forest-deep:#0b2a1b;
+    --cream:#f6f4ec;
+    --paper:#ffffff;
+    --red:#e1493f;
+    --amber:#dd9a35;
+    --sage:#5f9772;
+    --mint:#dcecdd;
+    --line: rgba(18,36,27,0.16);
+    --line-soft: rgba(18,36,27,0.10);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    background-image: radial-gradient(circle at 14% 8%, #eef2e6 0%, transparent 45%),
+                       radial-gradient(circle at 88% 4%, #e6efe4 0%, transparent 40%);
+    color:var(--ink);
+    font-family:'Satoshi', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+
+  /* ---------- top mark ---------- */
+  .topmark{ display:flex; align-items:center; gap:10px; padding:32px 0 0; }
+  .topmark svg{ display:block; }
+  .topmark span{ font-weight:600; letter-spacing:-0.01em; font-size:15px; }
+
+  /* ---------- hero ---------- */
+  .hero{ }
+
+  .sticker{
+    position:absolute;
+    width:78px; height:78px;
+    border:1.4px dashed rgba(18,36,27,.32);
+    border-radius:16px;
+    background:var(--paper);
+    box-shadow:0 14px 28px rgba(15,59,39,.14);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .sticker .handle{
+    position:absolute; width:6px; height:6px; border-radius:50%;
+    background:var(--paper); border:1.4px solid rgba(18,36,27,.4);
+  }
+  .sticker .handle.tl{ top:-3px; left:-3px; }
+  .sticker .handle.tr{ top:-3px; right:-3px; }
+  .sticker .handle.bl{ bottom:-3px; left:-3px; }
+  .sticker .handle.br{ bottom:-3px; right:-3px; }
+  .sticker svg{ width:34px; height:34px; }
+
+  .s1{ top:8px;   left:4%;   transform:rotate(-9deg); }
+  .s2{ top:-6px;  right:6%;  transform:rotate(8deg); }
+  .s3{ top:118px; left:29%;  transform:rotate(6deg); }
+  .s4{ top:210px; right:20%; transform:rotate(-7deg); }
+  .s5{ top:300px; left:6%;   transform:rotate(10deg); }
+  .s6{ bottom:-4px; right:2%; transform:rotate(-11deg); }
+
+  .hero-copy{ max-width:800px;margin:0 auto; padding-top:36px;}
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:88px;
+    line-height:1.08;
+    line-height:91px;
+    margin:0 0 22px;
+  }
+  .hero-copy p.lede{
+    font-size:18px;
+    line-height:1.4;
+    font-weight:400;
+    color:rgba(18,36,27,.72);
+    max-width:640px;
+    margin:0 0 30px;
+  }
+
+  .btn-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px; }
+  .btn{
+    font-family:'Satoshi'; font-size:16px; font-weight:500;
+    padding:18px 25px; border-radius:999px; cursor:pointer;
+    border:1.4px solid var(--line); background:var(--paper); color:var(--ink);
+    text-decoration:none; display:inline-flex; align-items:center;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); box-shadow:0 8px 16px rgba(15,59,39,.12); }
+  .btn.primary{ background:var(--forest); border-color:var(--forest); color:#fff; }
+  .btn.primary:hover{ box-shadow:0 8px 20px rgba(11,42,27,.35); }
+
+  .footnote{ font-size:13px; color:rgba(18,36,27,.6); }
+  .footnote a{
+    color:var(--ink); font-weight:500; margin-left:6px;
+    background:var(--mint); padding:5px 12px; border-radius:999px;
+    text-decoration:none; display:inline-block;
+  }
+
+  /* ---------- priority section ---------- */
+  .priority-section{ padding:60px 0 80px; text-align:center; }
+  .priority-section h2{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:clamp(34px, 6vw, 56px); margin:0 0 12px;
+  }
+  .priority-section p{
+    color:rgba(18,36,27,.68); font-size:15px; max-width:380px;
+    margin:0 auto 44px; line-height:1.55;
+  }
+
+  .mock-card{
+    max-width:560px; margin:0 auto; background:var(--paper);
+    border:1px solid var(--line-soft); border-radius:20px;
+    box-shadow:0 30px 60px rgba(15,59,39,.12);
+    overflow:hidden; text-align:left;
+  }
+  .mock-head{
+    display:flex; align-items:center; gap:8px; padding:14px 18px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .mock-dot{ width:9px; height:9px; border-radius:50%; background:var(--line); }
+  .mock-title{ font-size:12.5px; color:rgba(18,36,27,.55); margin-left:6px; }
+  .mock-body{ display:flex; }
+  .mock-side{
+    width:64px; background:var(--forest); padding:16px 0;
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+  }
+  .mock-side .logo{ width:18px; height:18px; }
+  .mock-side .bar{ width:26px; height:5px; border-radius:3px; background:rgba(255,255,255,.22); }
+  .mock-side .bar.active{ background:rgba(255,255,255,.75); }
+  .mock-rows{ flex:1; padding:6px 0; }
+  .mock-row{ display:flex; align-items:center; gap:12px; padding:11px 18px; }
+  .mock-row + .mock-row{ border-top:1px solid var(--line-soft); }
+  .flag{ width:8px; height:8px; border-radius:2px; flex:none; }
+  .flag.high{ background:var(--red); }
+  .flag.med{ background:var(--amber); }
+  .flag.low{ background:var(--sage); }
+  .mock-lines{ flex:1; }
+  .mock-line{ height:6px; border-radius:3px; background:var(--line-soft); }
+  .mock-line.short{ width:38%; margin-top:6px; }
+  .mock-line.long{ width:78%; }
+  .mock-time{ font-size:11px; color:rgba(18,36,27,.4); flex:none; }
+
+  /* ---------- CTA band ---------- */
+  .cta{
+    margin:0 0 80px; background:linear-gradient(135deg, var(--mint), #f3f6ee);
+    border-radius:24px; padding:40px 44px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    flex-wrap:wrap;
+  }
+  .cta h3{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:clamp(26px, 3.6vw, 34px); margin:0; max-width:360px; line-height:1.15;
+  }
+  .cta .btn-row{ margin:0; }
+
+  footer{ text-align:center; padding:0 0 40px; font-size:13px; color:rgba(18,36,27,.5); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px){
+    .wrap{ padding:0 20px; }
+    .hero{ padding:40px 0 60px; }
+    .sticker{ position:static; width:56px; height:56px; transform:none !important; }
+    .sticker svg{ width:26px; height:26px; }
+    .sticker-row{ display:flex; gap:10px; overflow-x:auto; padding-bottom:6px; margin-bottom:28px; }
+    .hero-copy{ padding-top:0; }
+    .priority-section{ padding:44px 0 56px; }
+    .mock-side{ width:48px; }
+    .cta{ padding:30px 26px; flex-direction:column; align-items:flex-start; }
+    h1{
+    font-size:46px;
+    line-height:47px;
+    margin:0 0 22px;
+  }
+  }
+
+  @media (min-width:861px){
+    .sticker-row{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .btn{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topmark">
+    <span>MailSense</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>Inbox clarity, sorted for you.</h1>
+      <p class="lede">MailSense reads what lands in your Gmail and ranks it high to medium to low, so the one email that matters never sits under fifty that don't.</p>
+      <div class="btn-row">
+        <a href="{{ url_for('login') }}" class="btn primary">Open dashboard</a>
+        <a href="#priority" class="btn">How it works</a>
+        <a href="#" class="btn">GitHub</a>
+      </div>
+      <p class="footnote">Curious how it scores a message? <a href="#priority">See the model</a></p>
+    </div>
+  </section>
+
+  <section class="priority-section" id="priority">
+    <h2>Priority</h2>
+    <p>Every message is scored the moment it arrives, and lands in your inbox already in order.</p>
+
+    <div class="mock-card">
+      <div class="mock-head">
+        <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+        <span class="mock-title">All Inboxes</span>
+      </div>
+      <div class="mock-body">
+        <div class="mock-side">
+          <svg class="logo" viewBox="0 0 24 24" fill="none"><path d="M12 2 3 20h18L12 2z" fill="#a9d6c3"/></svg>
+          <div class="bar active"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <div class="mock-rows">
+          <div class="mock-row">
+            <span class="flag high"></span>
+            <div class="mock-lines"><div class="mock-line long"></div><div class="mock-line short"></div></div>
+            <span class="mock-time">9:30</span>
+          </div>
+          <div class="mock-row">
+            <span class="flag high"></span>
+            <div class="mock-lines"><div class="mock-line long"></div><div class="mock-line short"></div></div>
+            <span class="mock-time">9:12</span>
+          </div>
+          <div class="mock-row">
+            <span class="flag med"></span>
+            <div class="mock-lines"><div class="mock-line long"></div><div class="mock-line short"></div></div>
+            <span class="mock-time">8:47</span>
+          </div>
+          <div class="mock-row">
+            <span class="flag low"></span>
+            <div class="mock-lines"><div class="mock-line long"></div><div class="mock-line short"></div></div>
+            <span class="mock-time">Yday</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <h3>Start sorting something.</h3>
+    <div class="btn-row">
+      <a href="#" class="btn primary">Open dashboard</a>
+      <a href="#" class="btn">View on GitHub</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
