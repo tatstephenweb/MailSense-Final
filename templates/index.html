@@ -116,7 +116,7 @@
             </svg>
             <span class="text-thirdgreen">Notification</span>
           </button>
-          <button class="nav-item text-forthgreen gap-2.5 w-full flex items-center  rounded-lg px-3 py-1.5 text-[15px] font-medium text-muted cursor-not-allowed">
+          <button class="nav-item text-forthgreen gap-2.5 w-full flex items-center rounded-lg px-3 py-1.5 text-[15px] font-medium text-muted cursor-not-allowed">
             <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9.6a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -134,9 +134,15 @@
     </div>
 
     <!-- Profile -->
-    <div class="flex items-center gap-2 px-4 py-4 border-t border-border shrink-0">
-      <div class="h-8 w-8 rounded-full bg-faint flex items-center justify-center text-[15px] font-bold shrink-0">T</div>
-      <span class="text-10 text-white">Tat Stephen</span>
+    <div class="flex items-center gap-1 justify-evenly py-4 border-t border-border">
+      <div class="h-8 w-8 rounded-full bg-faint">
+        <img class="h-8 w-8 rounded-full" src="{{ picture_url or url_for('static', filename='default-image.png') }}" alt="Profile Picture">
+      </div>
+      <div>
+        <span class="text-10 text-white">{{ name }}</span>
+        <p class="text-muted" style="font-size: 5px;">{{ email }}</p>
+      </div>
+
     </div>
 
   </aside>
