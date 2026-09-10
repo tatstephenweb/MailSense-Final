@@ -52,19 +52,6 @@ html, body {
   transition: background-color 120ms ease;
 }
 
-.mail-row:hover {
-  background-color: #FFF;
-}
-
-.mail-row--unread .mail-row__subject {
-  color: #555;
-  font-weight: 600;
-}
-
-.mail-row--read .mail-row__subject {
-  color: #555;
-  font-weight: 500;
-}
 
 /* Simple fade for switching between list and detail */
 .view-fade {
@@ -72,6 +59,51 @@ html, body {
 }
 
 .nav-icon { width: 32px; height: 32px; }
+
+.avatar-email, .avatar-email-detail{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top:5px;
+}
+#list-view {
+  min-width: 0; /* Allow flex items to shrink below their content size */
+  max-width: 40%; /* Optional: Set a maximum width for the list view */
+}
+.mail-row_snippet{
+  font-size:10px;
+  color:#747272
+}
+.mail-row_sender{
+  font-size:12px;
+  color:#000;
+  font-weight: 500;
+}
+.mail-row_subject{
+  font-size:12px;
+  color:#000;
+  font-weight: 500;
+}
+
+.mail-row_priority{
+  font-size:8px;
+  border-radius:10px;
+  padding:2px 6px;
+}
+
+.mail-row:hover{
+  background-color: #F7FCF5;
+}
+.mail-row:active{
+  border-top: solid 1px #41AB5D;
+  border-bottom: solid 1px #41AB5D;
+}
 
 @keyframes viewFade {
   from { opacity: 0; transform: translateY(4px); }
@@ -81,4 +113,34 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .view-fade { animation: none; }
   #sidebar { transition: none; }
+}
+
+@media screen and (max-width: 768px) {
+  #list-view {
+  max-width: 100%; /* Optional: Set a maximum width for the list view */
+}
+}
+
+#refreshBtn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s ease;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+#refreshBtn:hover {
+  background-color: #45a049;
+}
+
+#refreshBtn:active {
+  transform: scale(0.97);
 }
